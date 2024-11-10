@@ -156,11 +156,11 @@ public class Main {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 if (matriz[i][j] != 0) {
-                    return false; // La matriz no está vacía
+                    return false;               // La matriz no está vacía.
                 }
             }
         }
-        return true; // La matriz está vacía
+        return true;                            // La matriz está vacía.
     }
 }
 
