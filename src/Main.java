@@ -5,8 +5,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        int filas = 0;
-        int columnas = 0;
+        int filas;
+        int columnas;
+        int opcion = 0;
+
 
         //Solicitamos número de columnas y filas
 
@@ -22,7 +24,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next(); //Limpieza buffer.
+                scanner.next();             //Limpieza buffer.
             }
         }
         while (true) {
@@ -36,7 +38,7 @@ public class Main {
                 }
             } else {
                 System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next(); // Limpieza buffer.
+                scanner.next();             // Limpieza buffer.
             }
         }
 
@@ -60,7 +62,6 @@ public class Main {
             System.out.println();
         }
         //Creamos el Menú
-        int opcion = 0;
         do {
             System.out.println("Elige una opción:");
             System.out.println("[2] Poner bomba");
@@ -68,7 +69,7 @@ public class Main {
             System.out.println("[0] Salir");
             if (!scanner.hasNextInt()) {
                 System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next(); // Limpieza buffer.
+                scanner.next();             // Limpieza buffer.
                 continue;
             }
 
@@ -92,14 +93,14 @@ public class Main {
                 case 2:
                     if (ponerBomba(matriz, filas, columnas, scanner)) {
                         System.out.println("Todos los valores de la matriz són 0. Saliendo...");
-                        opcion = 0; //Termina el juego si la matriz esta vacía.
+                        opcion = 0;             //Termina el juego si la matriz esta vacía.
                     }
                     break;
 
                 default:
                     System.out.println("Selecciona una opción del menú. ");
             }
-        } while (opcion != 0); //Continuamos en el menú hasta que el usuario seleccione 0.
+        } while (opcion != 0);                  //Continuamos en el menú hasta que el usuario seleccione 0.
         scanner.close();
     }
 
@@ -111,14 +112,14 @@ public class Main {
             if (scanner.hasNextInt()) {
                 x = scanner.nextInt();
                 if (x >= 1 && x <= filas) {
-                    x -= 1; //esto me lo ha chivado chatgpt para que coja valores desde el 1.
+                    x -= 1;                     //esto me lo ha chivado chatgpt para que coja valores desde el 1.
                     break;
                 } else {
                     System.out.println("Coordenada fuera de rango. Dame un valor dentro de la matriz.");
                 }
             } else {
                 System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next(); //Limpieza buffer.
+                scanner.next();                 //Limpieza buffer.
             }
         }
         while (true) {
@@ -126,26 +127,26 @@ public class Main {
             if (scanner.hasNextInt()) {
                 y = scanner.nextInt();
                 if (y >= 1 && y <= columnas) {
-                    y -= 1; //Ajuste a índice de matriz
+                    y -= 1;                     //Ajuste a índice de matriz
                     break;
                 } else {
                     System.out.println("Coordenada fuera de rango. Dame un valor dentro de la matriz.");
                 }
             } else {
                 System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next(); //Limpieza buffer.
+                scanner.next();                 //Limpieza buffer.
             }
         }
 
         //Calcular explosión.
         int sumaExplosion = 0;
         for (int i = 0; i < matriz.length; i++) {
-            sumaExplosion += matriz[i][y]; //Suma columna y.
+            sumaExplosion += matriz[i][y];      //Suma columna y.
         }
         for (int j = 0; j < matriz[0].length; j++) {
-            sumaExplosion += matriz[x][j]; //Suma fila x.
+            sumaExplosion += matriz[x][j];      //Suma fila x.
         }
-        sumaExplosion -= matriz[x][y]; //NO contamos la intersección.
+        sumaExplosion -= matriz[x][y];          //NO contamos la intersección.
         System.out.println("Resultado de la explosión en (" + x + ", " + y + "): " + sumaExplosion);
 
         //Colocamos todo a 0
@@ -160,11 +161,11 @@ public class Main {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 if (matriz[i][j] != 0) {
-                    return false; // La matriz no está vacía
+                    return false;               // La matriz no está vacía
                 }
             }
         }
-        return true; // La matriz está vacía
+        return true;                            // La matriz está vacía
     }
 }
 
