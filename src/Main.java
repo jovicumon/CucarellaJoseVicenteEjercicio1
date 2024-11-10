@@ -36,25 +36,19 @@ public class Main {
             }
         }
 
-        //Creamos matriz con números aleatorios
+        //Creamos e imprimimos la matriz con números aleatorios
 
         int[][] matriz = new int[filas][columnas];
+        System.out.println("La Matriz és: ");
 
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 matriz[i][j] = random.nextInt(9) + 1; //Incluimos el 1 y el 9
-            }
-        }
-
-        // Imprimimos matriz
-
-        System.out.println("La Matriz és: ");
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
                 System.out.print(matriz[i][j] + " ");
             }
             System.out.println();
         }
+
         //Creamos el Menú
         do {
             System.out.println("Elige una opción:");
@@ -99,30 +93,24 @@ public class Main {
     }
 
     private static boolean ponerBomba(int[][] matriz, int filas, int columnas, Scanner scanner) {
-        int x, y;
 
-        while (true) {
-            System.out.print("Introduce la coordenada X (fila) de la bomba: ");
+        int x = 0, y = 0, valor;
+        boolean coordenadaX = false;
+        boolean coordenadaY = false;
+
+        while(!coordenadaX || !coordenadaY) {
+            System.out.println("Introduce la coordenada "  + (coordenadaX ? "Y (columna) " : "X (fila) ") +  "de la bomba: ");
             if (scanner.hasNextInt()) {
-                x = scanner.nextInt();
-                if (x >= 1 && x <= filas) {
-                    x -= 1;                     //esto me lo ha chivado chatgpt para que coja valores desde el 1.
-                    break;
-                } else {
-                    System.out.println("Coordenada fuera de rango. Dame un valor dentro de la matriz.");
-                }
-            } else {
-                System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next();                 //Limpieza buffer.
-            }
-        }
-        while (true) {
-            System.out.print("Introduce la coordenada Y (columna) de la bomba: ");
-            if (scanner.hasNextInt()) {
-                y = scanner.nextInt();
-                if (y >= 1 && y <= columnas) {
-                    y -= 1;                     //Ajuste a índice de matriz
-                    break;
+                valor = scanner.nextInt();
+                if (valor >= 1 && valor <= (!coordenadaX ? filas : columnas)) {
+                    valor -= 1;                         //esto me lo ha chivado chatgpt para que coja valores desde el 1.
+                    if(!coordenadaX){
+                        x = valor;
+                        coordenadaX = true;
+                    }else{
+                        y = valor;
+                        coordenadaY = true;
+                    }
                 } else {
                     System.out.println("Coordenada fuera de rango. Dame un valor dentro de la matriz.");
                 }
@@ -136,32 +124,27 @@ public class Main {
         int sumaExplosion = 0;
         for (int i = 0; i < matriz.length; i++) {
             sumaExplosion += matriz[i][y];      //Suma columna y.
+            matriz[i][y] = 0;                   //Colocamos todo a 0
         }
         for (int j = 0; j < matriz[0].length; j++) {
-            sumaExplosion += matriz[x][j];      //Suma fila x.
+            sumaExplosion += matriz[x][j]; //Suma fila x.
+            matriz[x][j] = 0;                   //Colocamos todo a 0
         }
         sumaExplosion -= matriz[x][y];          //NO contamos la intersección.
-        System.out.println("Resultado de la explosión en (" + x + ", " + y + "): " + sumaExplosion);
-
-        //Colocamos todo a 0
-        for (int i = 0; i < filas; i++) {
-            matriz[i][y] = 0;
-        }
-        for (int j = 0; j < columnas; j++) {
-            matriz[x][j] = 0;
-        }
+        System.out.println("Resultado de la explosión en (" + (x + 1)+ ", " + (y + 1) + "): " + sumaExplosion);     // Sumamos 1 a las coordenadas para que nos de el valor "real".
 
         // Comprobar si todo esta a 0
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 if (matriz[i][j] != 0) {
-                    return false;               // La matriz no está vacía
+                    return false; // La matriz no está vacía
                 }
             }
         }
-        return true;                            // La matriz está vacía
+        return true; // La matriz está vacía
     }
 }
+
 
 
 
