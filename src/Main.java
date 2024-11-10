@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ public class Main {
         boolean datofilas = false;
         boolean datocolumnas = false;
         int valor;
+        ArrayList<Integer> ranking = new ArrayList<>();
 
         //Solicitamos número de columnas y filas
 
@@ -35,7 +38,7 @@ public class Main {
                 }
             }
         }
-
+        System.out.println("---------------------------------------------");
         //Creamos e imprimimos la matriz con números aleatorios
 
         int[][] matriz = new int[filas][columnas];
@@ -79,12 +82,21 @@ public class Main {
                     }
                     break;
                 case 2:
-                    if (ponerBomba(matriz, filas, columnas, scanner)) {
+                    if (ponerBomba(matriz, filas, columnas, scanner, ranking)) {
                         System.out.println("Todos los valores de la matriz són 0. Saliendo...");
                         opcion = 0;             //Termina el juego si la matriz esta vacía.
                     }
                     break;
-
+                case 3:
+                    if(ranking.size()>0){
+                        ranking.sort(Collections.reverseOrder());
+                        for (int i = 0; i < ranking.size(); i++) {
+                            System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
+                        }
+                    }else{
+                        System.out.println("No hay puntuaciones. Empieza a jugar!!!!");
+                    }
+                    break;
                 default:
                     System.out.println("Selecciona una opción del menú. ");
             }
@@ -92,7 +104,7 @@ public class Main {
         scanner.close();
     }
 
-    private static boolean ponerBomba(int[][] matriz, int filas, int columnas, Scanner scanner) {
+    private static boolean ponerBomba(int[][] matriz, int filas, int columnas, Scanner scanner, ArrayList<Integer> ranking) {
 
         int x = 0, y = 0, valor;
         boolean coordenadaX = false;
@@ -102,7 +114,7 @@ public class Main {
             System.out.println("Introduce la coordenada "  + (coordenadaX ? "Y (columna) " : "X (fila) ") +  "de la bomba: ");
             if (scanner.hasNextInt()) {
                 valor = scanner.nextInt();
-                if (valor >= 1 && valor <= (!coordenadaX ? filas : columnas)) {
+                if (valor >= 1 && valor <= (!coordenadaX ? filas : columnas)) {     // Si tenemos un valor correcto para filas preguntamos por columnas sino repetimos bucle. Cuando tenemos ambos valores correctos, seguimos adelante.
                     valor -= 1;                         //esto me lo ha chivado chatgpt para que coja valores desde el 1.
                     if(!coordenadaX){
                         x = valor;
@@ -127,11 +139,12 @@ public class Main {
             matriz[i][y] = 0;                   //Colocamos todo a 0
         }
         for (int j = 0; j < matriz[0].length; j++) {
-            sumaExplosion += matriz[x][j]; //Suma fila x.
+            sumaExplosion += matriz[x][j];      //Suma fila x.
             matriz[x][j] = 0;                   //Colocamos todo a 0
         }
         sumaExplosion -= matriz[x][y];          //NO contamos la intersección.
         System.out.println("Resultado de la explosión en (" + (x + 1)+ ", " + (y + 1) + "): " + sumaExplosion);     // Sumamos 1 a las coordenadas para que nos de el valor "real".
+        ranking.add(sumaExplosion);             // Añadimos al ranking la puntuación.
 
         // Comprobar si todo esta a 0
         for (int i = 0; i < filas; i++) {
