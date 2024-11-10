@@ -55,6 +55,7 @@ public class Main {
         //Creamos el Menú
         do {
             System.out.println("Elige una opción:");
+            System.out.println("[3] Ranking");
             System.out.println("[2] Poner bomba");
             System.out.println("[1] Mostrar matriz");
             System.out.println("[0] Salir");
