@@ -51,7 +51,7 @@ public class Main {
             }
             System.out.println();
         }
-
+        System.out.println("---------------------------------------------");
         //Creamos el Menú
         do {
             System.out.println("Elige una opción:");
@@ -84,13 +84,17 @@ public class Main {
                     break;
                 case 2:
                     if (ponerBomba(matriz, filas, columnas, scanner, ranking)) {
-                        System.out.println("Todos los valores de la matriz són 0. Saliendo...");
+                        System.out.println("Todos los valores de la matriz són 0. Ranking final!"); // Salimos mostrando el ranking cuando todos los valores de la matriz están a 0.
+                        ranking.sort(Collections.reverseOrder());
+                        for (int i = 0; i < ranking.size(); i++) {
+                            System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
+                        }
                         opcion = 0;             //Termina el juego si la matriz esta vacía.
                     }
                     break;
                 case 3:
                     if(ranking.size()>0){
-                        ranking.sort(Collections.reverseOrder());
+                        ranking.sort(Collections.reverseOrder());       // Lo he consultado en chatgpt para ver como añadir, guardar y ordenar el ranking.
                         for (int i = 0; i < ranking.size(); i++) {
                             System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
                         }
@@ -101,6 +105,7 @@ public class Main {
                 default:
                     System.out.println("Selecciona una opción del menú. ");
             }
+            System.out.println("---------------------------------------------");
         } while (opcion != 0);                  //Continuamos en el menú hasta que el usuario seleccione 0.
         scanner.close();
     }
