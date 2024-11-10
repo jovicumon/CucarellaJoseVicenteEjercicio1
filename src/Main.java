@@ -5,42 +5,43 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        int filas;
-        int columnas;
+        int filas = 0;
+        int columnas = 0;
         int opcion = 0;
-
+        boolean datofilas = false;
+        boolean datocolumnas = false;
 
         //Solicitamos número de columnas y filas
 
-        while (true) {
-            System.out.println("Introduce número de filas: ");
-            if (scanner.hasNextInt()) {
+        while(!datofilas){
+            System.out.println("Introduce el número de filas: ");
+            if(!scanner.hasNextInt()){              // Verificamos que el tamaño es un entero.
+                System.out.println("Dato erróneo, introduce un número entero.");
+                scanner.next();
+            }else{
                 filas = scanner.nextInt();
-                if (filas > 0) {
-                    break;
-
-                } else {
+                if (filas < 0) {
                     System.out.println("El valor debe ser un entero positivo. Dime un nuevo valor");
+                }else{
+                    datofilas = true;
                 }
-            } else {
-                System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next();             //Limpieza buffer.
             }
         }
-        while (true) {
+        while(!datocolumnas){
             System.out.println("Introduce el número de columnas: ");
-            if (scanner.hasNextInt()) {
+            if(!scanner.hasNextInt()){              // Verificamos que el tamaño es un entero.
+                System.out.println("Dato erróneo, introduce un número entero.");
+                scanner.next();
+            }else{
                 columnas = scanner.nextInt();
-                if (columnas > 0) {
-                    break;
-                } else {
+                if (columnas < 0) {
                     System.out.println("El valor debe ser un entero positivo. Dime un nuevo valor");
+                }else{
+                    datocolumnas = true;
                 }
-            } else {
-                System.out.println("Valor incorrecto. Introduce un número entero.");
-                scanner.next();             // Limpieza buffer.
             }
         }
+
 
         //Creamos matriz con números aleatorios
 
