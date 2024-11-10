@@ -10,38 +10,31 @@ public class Main {
         int opcion = 0;
         boolean datofilas = false;
         boolean datocolumnas = false;
+        int valor;
 
         //Solicitamos número de columnas y filas
 
-        while(!datofilas){
-            System.out.println("Introduce el número de filas: ");
+        while(!datofilas || !datocolumnas){
+            System.out.println(datofilas ? "Introduce el número de columnas: " : "Introduce el número de filas: ");
             if(!scanner.hasNextInt()){              // Verificamos que el tamaño es un entero.
                 System.out.println("Dato erróneo, introduce un número entero.");
-                scanner.next();             // Limpieza buffer.
+                scanner.next();                     // Limpieza buffer.
             }else{
-                filas = scanner.nextInt();
-                if (filas < 0) {
-                    System.out.println("El valor debe ser un entero positivo. Dime un nuevo valor");
+                valor = scanner.nextInt();
+                if (valor > 0) {
+                    if (!datofilas){
+                        filas=valor;
+                        datofilas = true;           //Filas okey.
+                    }else{
+                        columnas = valor;
+                        datocolumnas = true;        //Columnas okey.
+                    }
                 }else{
-                    datofilas = true;
-                }
-            }
-        }
-        while(!datocolumnas){
-            System.out.println("Introduce el número de columnas: ");
-            if(!scanner.hasNextInt()){              // Verificamos que el tamaño es un entero.
-                System.out.println("Dato erróneo, introduce un número entero.");
-                scanner.next();             // Limpieza buffer.
-            }else{
-                columnas = scanner.nextInt();
-                if (columnas < 0) {
                     System.out.println("El valor debe ser un entero positivo. Dime un nuevo valor");
-                }else{
-                    datocolumnas = true;
-                }
-            }
-        }
 
+                }
+            }
+        }
 
         //Creamos matriz con números aleatorios
 
