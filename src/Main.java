@@ -17,7 +17,7 @@ public class Main {
             System.out.println("Introduce el número de filas: ");
             if(!scanner.hasNextInt()){              // Verificamos que el tamaño es un entero.
                 System.out.println("Dato erróneo, introduce un número entero.");
-                scanner.next();
+                scanner.next();             // Limpieza buffer.
             }else{
                 filas = scanner.nextInt();
                 if (filas < 0) {
@@ -31,7 +31,7 @@ public class Main {
             System.out.println("Introduce el número de columnas: ");
             if(!scanner.hasNextInt()){              // Verificamos que el tamaño es un entero.
                 System.out.println("Dato erróneo, introduce un número entero.");
-                scanner.next();
+                scanner.next();             // Limpieza buffer.
             }else{
                 columnas = scanner.nextInt();
                 if (columnas < 0) {
