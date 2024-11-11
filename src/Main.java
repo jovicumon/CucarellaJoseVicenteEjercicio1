@@ -9,7 +9,7 @@ public class Main {
         Random random = new Random();
         int filas = 0;
         int columnas = 0;
-        int opcion = 0;
+        int opcion = -1;
         boolean datofilas = false;
         boolean datocolumnas = false;
         int valor;
@@ -59,52 +59,52 @@ public class Main {
             System.out.println("[2] Poner bomba");
             System.out.println("[1] Mostrar matriz");
             System.out.println("[0] Salir");
+
             if (!scanner.hasNextInt()) {
                 System.out.println("Valor incorrecto. Introduce un número entero.");
                 scanner.next();             // Limpieza buffer.
                 continue;
             }
+                opcion = scanner.nextInt();
+            
+                switch (opcion) {
+                    case 0:
+                        System.out.println("Saliendo...");
+                        scanner.close();
+                        break;
 
-            opcion = scanner.nextInt();
-
-            switch (opcion) {
-                case 0:
-                    System.out.println("Saliendo...");
-                    scanner.close();
-                    break;
-
-                case 1:
-                    System.out.println("La Matriz és: ");
-                    for (int i = 0; i < filas; i++) {
-                        for (int j = 0; j < columnas; j++) {
-                            System.out.print(matriz[i][j] + " ");
+                    case 1:
+                        System.out.println("La Matriz és: ");
+                        for (int i = 0; i < filas; i++) {
+                            for (int j = 0; j < columnas; j++) {
+                                System.out.print(matriz[i][j] + " ");
+                            }
+                            System.out.println();
                         }
-                        System.out.println();
-                    }
-                    break;
-                case 2:
-                    if (ponerBomba(matriz, filas, columnas, scanner, ranking)) {
-                        System.out.println("Todos los valores de la matriz són 0. Ranking final!"); // Salimos mostrando el ranking cuando todos los valores de la matriz están a 0.
-                        ranking.sort(Collections.reverseOrder());
-                        for (int i = 0; i < ranking.size(); i++) {
-                            System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
+                        break;
+                    case 2:
+                        if (ponerBomba(matriz, filas, columnas, scanner, ranking)) {
+                            System.out.println("Todos los valores de la matriz són 0. Ranking final!"); // Salimos mostrando el ranking cuando todos los valores de la matriz están a 0.
+                            ranking.sort(Collections.reverseOrder());
+                            for (int i = 0; i < ranking.size(); i++) {
+                                System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
+                            }
+                            opcion = 0;             //Termina el juego si la matriz esta vacía.
                         }
-                        opcion = 0;             //Termina el juego si la matriz esta vacía.
-                    }
-                    break;
-                case 3:
-                    if(ranking.size()>0){
-                        ranking.sort(Collections.reverseOrder());       // Lo he consultado en chatgpt para ver como añadir, guardar y ordenar el ranking.
-                        for (int i = 0; i < ranking.size(); i++) {
-                            System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
+                        break;
+                    case 3:
+                        if(ranking.size()>0){
+                            ranking.sort(Collections.reverseOrder());       // Lo he consultado en chatgpt para ver como añadir, guardar y ordenar el ranking.
+                            for (int i = 0; i < ranking.size(); i++) {
+                                System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
+                            }
+                        }else{
+                            System.out.println("No hay puntuaciones. Empieza a jugar!!!!");
                         }
-                    }else{
-                        System.out.println("No hay puntuaciones. Empieza a jugar!!!!");
-                    }
-                    break;
-                default:
-                    System.out.println("Selecciona una opción del menú. ");
-            }
+                        break;
+                    default:
+                        System.out.println("Selecciona una opción del menú. ");
+                }
             System.out.println("---------------------------------------------");
         } while (opcion != 0);                  //Continuamos en el menú hasta que el usuario seleccione 0.
         scanner.close();
