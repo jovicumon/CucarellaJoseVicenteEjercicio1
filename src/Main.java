@@ -9,7 +9,7 @@ public class Main {
         Random random = new Random();
         int filas = 0;
         int columnas = 0;
-        int opcion = -1;
+        int opcion = -1;            // Valor negativo para que en el menú al darle un valor no númerico no se salga y nos vuelva a mostrar el menu.
         boolean datofilas = false;
         boolean datocolumnas = false;
         int valor;
