@@ -9,7 +9,7 @@ public class CucarellaJoseVicenteEjercicio1 {
         Random random = new Random();
         int filas = 0;
         int columnas = 0;
-        int opcion = -1;            // Valor negativo para que en el menú al darle un valor no númerico no se salga y nos vuelva a mostrar el menu.
+        int opcion = -1;            // Valor negativo para que en el menú al darle un valor alfabético no se salga y nos vuelva a mostrar el menu.
         boolean datofilas = false;
         boolean datocolumnas = false;
         int valor;
@@ -89,7 +89,7 @@ public class CucarellaJoseVicenteEjercicio1 {
                             for (int i = 0; i < ranking.size(); i++) {
                                 System.out.println("Puesto " + (i + 1) + ": " + ranking.get(i));
                             }
-                            opcion = 0;             //Termina el juego si la matriz esta vacía.
+                            opcion = 0;             //Termina el juego si la matriz esta toda a 0.
                         }
                         break;
                     case 3:
